@@ -1,0 +1,113 @@
+<div ng-controller="HeroController as c" class="controller">
+<form class="form-horizontal" name="superheroForm" ng-submit="c.save(superheroForm.$valid)">
+<fieldset>
+
+<!-- Form Name -->
+<legend>New Super Hero</legend>
+
+<div ng-show="c.errorCondition" class="text-danger">
+  <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="text-danger">
+    ERROR!! Please contact technical support for assistance
+  </span></p>
+</div>
+<div ng-show="c.showConfirm" class="text-success">
+  <p><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><span class="text-success">
+    Super Hero Successfully Saved!
+  </span></p>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="hero_name">Super Hero Name</label>  
+  <div class="col-md-4">
+  <input id="hero_name" name="hero_name" ng-model="c.superheroForm.hero_name" type="text" placeholder="super hero name" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="real_name">Given Name</label>  
+  <div class="col-md-4">
+	  <input id="real_name" name="real_name" ng-model="c.superheroForm.real_name" type="text" placeholder="given name" class="form-control input-md" required="">
+  </div>
+</div>
+
+<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="gender">Gender</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="gender-0">
+      <input type="radio" name="gender" ng-model="c.superheroForm.gender" id="gender-0" value="Male" checked="checked">
+      Male
+    </label> 
+    <label class="radio-inline" for="gender-1">
+      <input type="radio" name="gender" ng-model="c.superheroForm.gender" id="gender-1" value="Female">
+      Female
+    </label>
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attribute.intelligence">Intelligence</label>  
+  <div class="col-md-4">
+  <input id="attribute.intelligence" name="attribute.intelligence" ng-model="c.superheroForm.attribute.intelligence" type="number" placeholder="100" class="form-control input-md" required="">
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attribute.strength">Strength</label>  
+  <div class="col-md-4">
+  <input id="attribute.strength" name="attribute.strength" ng-model="c.superheroForm.attribute.strength" type="number" placeholder="100" class="form-control input-md" required="">
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attribute.speed">Speed</label>  
+  <div class="col-md-4">
+  <input id="attribute.speed" name="attribute.speed" ng-model="c.superheroForm.attribute.speed" type="number" placeholder="100" class="form-control input-md" required="">
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attribute.durability">Durability</label>  
+  <div class="col-md-4">
+  <input id="attribute.durability" name="attribute.durability" ng-model="c.superheroForm.attribute.durability" type="number" placeholder="100" class="form-control input-md" required="">
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attribute.power">Power</label>  
+  <div class="col-md-4">
+  <input id="attribute.power" name="attribute.power" ng-model="c.superheroForm.attribute.power" type="number" placeholder="100" class="form-control input-md" required="">
+  </div>
+</div>
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attribute.combat">Combat</label>  
+  <div class="col-md-4">
+  <input id="attribute.combat" name="attribute.combat" ng-model="c.superheroForm.attribute.combat" type="number" placeholder="100" class="form-control input-md" required="">
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="powers">Powers</label>  
+  <div class="col-md-4">
+  <textarea id="powers" name="powers" class="form-control input-md" ng-model="c.superheroForm.powers" placeholder="separate each power with a ';'"required=""></textarea>  
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="weaknesses">Weaknesses</label>  
+  <div class="col-md-4">
+  <textarea id="weaknesses" name="weaknesses" ng-model="c.superheroForm.weaknesses" class="form-control input-md" required="" placeholder="separate each weakness with a ';'"></textarea>  
+  </div>
+</div>
+<!-- Button -->
+<input type="hidden" name="id" ng-model="c.superheroForm.id">
+<div class="form-group">
+  <div class="col-md-4 pull-right">
+    <button id="submit" type="submit" name="submit" class="btn btn-primary" ng-disabled="superheroForm.$invalid">Submit</button>
+  </div>
+</div>
+</fieldset>
+</form>
+
+</div>
