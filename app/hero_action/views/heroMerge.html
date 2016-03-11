@@ -1,14 +1,44 @@
-<form class="form-horizontal" role="form" name="superheroForm" ng-submit="submitSuperHero(superheroForm.$valid)">
+<div ng-controller="HeroController as c" class="controller">
+<form class="form-horizontal" name="superheroForm" ng-submit="c.save(superheroForm.$valid)">
 <fieldset>
-
 <!-- Form Name -->
 <legend>New Super Hero</legend>
+
+<div ng-show="c.errorCondition" class="text-danger">
+  <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="text-danger">
+    ERROR!! Please contact technical support for assistance
+  </span></p>
+</div>
+<div ng-show="c.showConfirm" class="text-success">
+  <p><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><span class="text-success">
+    Super Hero Successfully Saved!
+  </span></p>
+</div>
+<div>
+  <span>Select Super Heroes to Merge</span>
+</div>
+<div class='col-md-6'>    
+    <div class='form-group'>
+        <label for="super_hero_1">Super Hero 1</label>
+        <select name="mySelect" id="mySelect"
+            ng-options="option.hero_name for option in c.superheroList track by option.id"
+            ng-model="c.superhero1Selected" required=""></select>
+   </div>
+</div>
+<div class='col-md-6'>
+    <div class='form-group'>
+        <label for="super_hero_2">Super Hero 2</label>
+        <select name="mySelect" id="mySelect"
+            ng-options="option.hero_name for option in c.superheroList track by option.id"
+            ng-model="c.superhero2Selected" required=""></select>
+    </div>
+</div>
 
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="hero_name">Super Hero Name</label>  
   <div class="col-md-4">
-  <input id="hero_name" name="hero_name" type="text" placeholder="super hero name" class="form-control input-md" required="">
+  <input id="hero_name" name="hero_name" ng-model="c.superheroForm.hero_name" type="text" placeholder="super hero name" class="form-control input-md" required="">
     
   </div>
 </div>
@@ -17,7 +47,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="real_name">Given Name</label>  
   <div class="col-md-4">
-	  <input id="real_name" name="real_name" type="text" placeholder="given name" class="form-control input-md" required="">
+    <input id="real_name" name="real_name" ng-model="c.superheroForm.real_name" type="text" placeholder="given name" class="form-control input-md" required="">
   </div>
 </div>
 
@@ -26,75 +56,114 @@
   <label class="col-md-4 control-label" for="gender">Gender</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="gender-0">
-      <input type="radio" name="gender" id="gender-0" value="Male" checked="checked">
+      <input type="radio" name="gender" ng-model="c.superheroForm.gender" id="gender-0" value="Male" checked="checked">
       Male
     </label> 
     <label class="radio-inline" for="gender-1">
-      <input type="radio" name="gender" id="gender-1" value="Female">
+      <input type="radio" name="gender" ng-model="c.superheroForm.gender" id="gender-1" value="Female">
       Female
     </label>
   </div>
 </div>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="attribute.intelligence">Intelligence</label>  
+  <label class="col-md-4 control-label" for="attributes.intelligence">Intelligence</label>  
   <div class="col-md-4">
-  <input id="attribute.intelligence" name="attribute.intelligence" type="number" placeholder="100" class="form-control input-md" required="">
+  <select name="attributes.intelligence" id="attributes.intelligence" ng-model="c.superheroForm.attributes.intelligence" required="">
+      <option value="">---Please select---</option> <!-- not selected / blank option -->
+      <option value="{{c.superhero1Selected.attributes.intelligence}}">{{c.superhero1Selected.attributes.intelligence}}</option> <!-- interpolation attributes.intelligence-->
+      <option value="{{c.superhero2Selected.attributes.intelligence}}">{{c.superhero2Selected.attributes.intelligence}}</option> 
+    </select>
   </div>
 </div>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="attribute.strength">Strength</label>  
+  <label class="col-md-4 control-label" for="attributes.strength">Strength</label>  
   <div class="col-md-4">
-  <input id="attribute.strength" name="attribute.strength" type="number" placeholder="100" class="form-control input-md" required="">
+  <select name="attributes.strength" id="attributes.strength" ng-model="c.superheroForm.attributes.strength" required="">
+      <option value="">---Please select---</option> <!-- not selected / blank option -->
+      <option value="{{c.superhero1Selected.attributes.strength}}">{{c.superhero1Selected.attributes.strength}}</option> <!-- interpolation attributes.intelligence-->
+      <option value="{{c.superhero2Selected.attributes.strength}}">{{c.superhero2Selected.attributes.strength}}</option> 
+    </select>
   </div>
 </div>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="attribute.speed">Speed</label>  
+  <label class="col-md-4 control-label" for="attributes.speed">Speed</label>  
   <div class="col-md-4">
-  <input id="attribute.speed" name="attribute.speed" type="number" placeholder="100" class="form-control input-md" required="">
+    <select name="attributes.speed" id="attributes.speed" ng-model="c.superheroForm.attributes.speed" required="">
+      <option value="">---Please select---</option> <!-- not selected / blank option -->
+      <option value="{{c.superhero1Selected.attributes.speed}}">{{c.superhero1Selected.attributes.speed}}</option>
+      <option value="{{c.superhero2Selected.attributes.speed}}">{{c.superhero2Selected.attributes.speed}}</option> 
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="attributes.durability">Durability</label>  
+  <div class="col-md-4">
+  <select name="attributes.durability" id="attributes.durability" ng-model="c.superheroForm.attributes.durability" required="">
+      <option value="">---Please select---</option> <!-- not selected / blank option -->
+      <option value="{{c.superhero1Selected.attributes.durability}}">{{c.superhero1Selected.attributes.durability}}</option>
+      <option value="{{c.superhero2Selected.attributes.durability}}">{{c.superhero2Selected.attributes.durability}}</option> 
+    </select>
   </div>
 </div>
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="attribute.durability">Durability</label>  
+  <label class="col-md-4 control-label" for="attributes.power">Power</label>  
   <div class="col-md-4">
-  <input id="attribute.durability" name="attribute.durability" type="number" placeholder="100" class="form-control input-md" required="">
+    <select name="attributes.power" id="attributes.power" ng-model="c.superheroForm.attributes.power" required="">
+      <option value="">---Please select---</option> <!-- not selected / blank option -->
+      <option value="{{c.superhero1Selected.attributes.power}}">{{c.superhero1Selected.attributes.power}}</option>
+      <option value="{{c.superhero2Selected.attributes.power}}">{{c.superhero2Selected.attributes.power}}</option> 
+    </select>
   </div>
 </div>
+
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="attribute.power">Power</label>  
+  <label class="col-md-4 control-label" for="attributes.combat">Combat</label>  
   <div class="col-md-4">
-  <input id="attribute.power" name="attribute.power" type="number" placeholder="100" class="form-control input-md" required="">
-  </div>
-</div>
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="attribute.combat">Combat</label>  
-  <div class="col-md-4">
-  <input id="attribute.combat" name="attribute.combat" type="number" placeholder="100" class="form-control input-md" required="">
+    <select name="attributes.combat" id="attributes.combat" ng-model="c.superheroForm.attributes.combat" required="">
+      <option value="">---Please select---</option> <!-- not selected / blank option -->
+      <option value="{{c.superhero1Selected.attributes.combat}}">{{c.superhero1Selected.attributes.combat}}</option>
+      <option value="{{c.superhero2Selected.attributes.combat}}">{{c.superhero2Selected.attributes.combat}}</option> 
+    </select>
   </div>
 </div>
 <div class="form-group">
   <label class="col-md-4 control-label" for="powers">Powers</label>  
   <div class="col-md-4">
-  <textarea id="powers" name="powers" class="form-control input-md" placeholder="separate each power with a ';'"required=""></textarea>  
+    <select name="repeatSelect" id="repeatSelect" ng-model="c.superheroForm.powers" multiple="">
+      <option ng-repeat="option in c.superhero1Selected.powers" value="{{option}}">{{option}}</option>
+      <option ng-repeat="option in c.superhero2Selected.powers" value="{{option}}">{{option}}</option>
+    </select>
+    <span ng-show="superheroForm.$error.max5">Only select up to 5 powers.</span>
   </div>
 </div>
 <div class="form-group">
   <label class="col-md-4 control-label" for="weaknesses">Weaknesses</label>  
   <div class="col-md-4">
-  <textarea id="weaknesses" name="weaknesses" class="form-control input-md" required="" placeholder="separate each weakness with a ';'"></textarea>  
+    <ul>
+    <li ng-repeat="model in c.superhero1Selected.weaknesses track by model">
+      {{model}}
+    </li>
+    <li ng-repeat="model in c.superhero2Selected.weaknesses track by model">
+      {{model}}
+    </li>
+    </ul>
   </div>
 </div>
 <!-- Button -->
+<input type="hidden" name="id" ng-model="c.superheroForm.id">
 <div class="form-group">
-  <div class="col-md-4">
+  <div class="col-md-4 pull-right">
     <button id="submit" type="submit" name="submit" class="btn btn-primary" ng-disabled="superheroForm.$invalid">Submit</button>
   </div>
 </div>
 </fieldset>
 </form>
 
+</div>
